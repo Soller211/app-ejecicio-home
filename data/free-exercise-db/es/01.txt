@@ -1,0 +1,178 @@
+## Arnold_Dumbbell_Press
+Press Arnold con mancuernas
+- Siéntate en un banco con respaldo y sostén dos mancuernas frente a ti, a la altura de la parte alta del pecho, con las palmas hacia tu cuerpo y los codos flexionados. Consejo: los brazos deben quedar junto al torso. La posición inicial se parece a la parte contraída de un curl con mancuernas.
+- Para hacer el movimiento, sube las mancuernas mientras giras las palmas hasta que miren al frente.
+- Sigue subiendo las mancuernas hasta que los brazos queden extendidos sobre ti. Exhala durante esta parte del movimiento.
+- Tras una pausa de un segundo arriba, baja las mancuernas a la posición original girando las palmas hacia ti. Consejo: el brazo izquierdo gira en sentido antihorario y el derecho en sentido horario. Inhala durante esta parte del movimiento.
+- Repite las repeticiones recomendadas.
+
+## Around_The_Worlds
+Vuelta al mundo con mancuernas
+- Acuéstate en un banco plano con una mancuerna en cada mano y las palmas hacia el techo. Consejo: los brazos deben quedar paralelos al piso, junto a los muslos. Para evitar lesiones, mantén los codos ligeramente flexionados. Esta es tu posición inicial.
+- Mueve las mancuernas trazando un semicírculo desde la posición inicial hasta arriba de la cabeza. Todo el movimiento debe hacerse con los brazos paralelos al piso. Inhala durante esta parte del movimiento.
+- Invierte el movimiento para regresar a la posición inicial mientras exhalas.
+
+## Atlas_Stone_Trainer
+Simulador de piedra Atlas
+- Este implemento sirve para desarrollar la fuerza de la piedra Atlas si no tienes acceso a piedras; suele fabricarse con puntas de barra o tubo pesado.
+- Carga el peso deseado en la barra. Colócate con el peso entre las piernas, rodéalo con los brazos y flexiona la cadera.
+- Jala el peso hacia arriba pasando las rodillas, extendiendo la cadera. Cuando el peso pase las rodillas, apóyalo sobre los muslos sentándote hacia atrás y abrázalo con fuerza contra el pecho.
+- Termina el movimiento extendiendo cadera y rodillas para subir el peso lo más alto posible. Para las siguientes repeticiones, puedes regresarlo a los muslos o al piso.
+
+## Atlas_Stones
+Piedras Atlas
+- Empieza con la piedra Atlas entre los pies. Flexiona la cadera para rodear la piedra con los brazos en vertical, tratando de meter los dedos por debajo. Muchas piedras tienen una pequeña parte plana abajo que facilita sujetarlas.
+- Jalando la piedra hacia el torso, empuja con la parte trasera de los pies para despegarla del suelo.
+- Cuando la piedra pase las rodillas, apóyala sobre los muslos sentándote hacia atrás.
+- Siéntate bajo, sube la piedra al pecho y cambia el agarre para rodearla por arriba. Ponte de pie empujando con la cadera. Acércate a la plataforma, inclínate hacia atrás y extiende la cadera para subir la piedra lo más alto posible.
+
+## Axle_Deadlift
+Peso muerto con barra gruesa (axle)
+- Acércate a la barra de modo que quede centrada sobre tus pies, separados a la anchura de la cadera. Flexiona la cadera para tomar la barra a la anchura de los hombros, dejando que los omóplatos se separen. Normalmente se usa agarre mixto.
+- Con pies y agarre listos, toma una respiración profunda, baja la cadera y flexiona las rodillas hasta que las espinillas toquen la barra. Mira al frente, mantén el pecho arriba y la espalda arqueada, y empuja con los talones para subir el peso.
+- Cuando la barra pase las rodillas, jálala con fuerza hacia atrás, juntando los omóplatos mientras empujas la cadera hacia la barra.
+- Baja la barra flexionando la cadera y guiándola hasta el piso.
+
+## Back_Flyes_-_With_Bands
+Aperturas posteriores con banda
+- Pasa una banda alrededor de un poste fijo, como el de un rack de sentadillas.
+- Toma la banda por las manijas y aléjate hasta que aumente la tensión.
+- Extiende y eleva los brazos rectos frente a ti. Consejo: los brazos deben estar rectos, paralelos al piso y perpendiculares al torso. Los pies, firmes en el piso y separados a la anchura de los hombros. Esta es tu posición inicial.
+- Mientras exhalas, lleva los brazos hacia los lados y atrás, extendidos y paralelos al piso. Continúa hasta que los brazos queden extendidos a los lados.
+- Tras una pausa, regresa a la posición original mientras inhalas.
+- Repite las repeticiones recomendadas.
+
+## Backward_Drag
+Arrastre de trineo hacia atrás
+- Carga un trineo con el peso deseado y engánchale una cuerda o correas para sujetarte.
+- Camina hacia atrás una distancia determinada. Inclinándote hacia atrás, extiende las piernas con pasos cortos para moverte lo más rápido posible.
+
+## Backward_Medicine_Ball_Throw
+Lanzamiento de balón medicinal hacia atrás
+- Es mejor hacerlo con un compañero. Si no tienes, puedes lanzar el balón e ir por él, o lanzarlo contra una pared.
+- Párate unos metros delante de tu compañero, ambos mirando en la misma dirección. Sostén el balón entre las piernas.
+- Haz una sentadilla y luego invierte la dirección con fuerza, extendiéndote por completo mientras lanzas el balón sobre tu cabeza hacia tu compañero.
+- Tu compañero puede regresarte el balón rodando. Repite las veces deseadas.
+
+## Balance_Board
+Tabla de equilibrio
+- Coloca una tabla de equilibrio frente a ti.
+- Súbete y trata de mantener el equilibrio.
+- Mantén el equilibrio el tiempo que quieras.
+
+## Ball_Leg_Curl
+Curl femoral con pelota
+- Acuéstate boca arriba en el piso con los pies sobre la pelota.
+- Coloca la pelota de modo que, con las piernas extendidas, los tobillos queden encima. Esta es tu posición inicial.
+- Eleva la cadera del suelo, apoyando el peso en los omóplatos y los pies.
+- Flexiona las rodillas jalando la pelota lo más cerca posible, contrayendo los isquiotibiales.
+- Tras una breve pausa, regresa a la posición inicial.
+
+## Band_Assisted_Pull-Up
+Dominada asistida con banda
+- Amarra la banda al centro de la barra de dominadas. Puedes usar distintas bandas para tener más o menos ayuda.
+- Jala el extremo de la banda hacia abajo y mete una rodilla flexionada en el lazo, asegurándote de que no se salga. Toma la barra con agarre medio a amplio. Esta es tu posición inicial.
+- Súbete contrayendo los dorsales mientras flexionas los codos, llevándolos hacia los costados. Jala hacia el frente intentando pasar la barbilla por encima de la barra. Evita balanceos o tirones.
+- Tras una breve pausa, regresa a la posición inicial.
+
+## Band_Good_Morning
+Buenos días con banda
+- Con una banda de unos 104 cm, párate sobre un extremo con los pies ligeramente separados. Flexiona la cadera para pasar el otro extremo por detrás del cuello. Esta es tu posición inicial.
+- Con las piernas rectas, extiende la cadera hasta quedar casi vertical.
+- Al bajar de nuevo a la posición inicial, asegúrate de no encorvar la espalda.
+
+## Band_Good_Morning_Pull_Through
+Buenos días con banda (desde poste)
+- Pasa la banda alrededor de un poste. Aléjate un poco y pasa el otro extremo por detrás del cuello. Puedes ayudarte con las manos para mantener la banda en su lugar.
+- Flexiona la cadera llevando los glúteos hacia atrás lo más posible. Mantén la espalda plana e inclínate hasta unos 90 grados. Las rodillas, solo ligeramente flexionadas.
+- Regresa a la posición inicial empujando con la cadera hasta quedar de pie.
+
+## Band_Hip_Adductions
+Aducción de cadera con banda
+- Ancla una banda a un poste u objeto firme.
+- Párate con tu lado izquierdo hacia el poste y mete el pie derecho en la banda, a la altura del tobillo.
+- Párate derecho y sujétate del poste si lo necesitas. Esta es tu posición inicial.
+- Con la rodilla recta, eleva la pierna derecha hacia el lado lo más que puedas.
+- Regresa a la posición inicial y repite las veces deseadas.
+- Cambia de lado.
+
+## Band_Pull_Apart
+Separación de banda
+- Empieza con los brazos extendidos al frente, sujetando la banda con ambas manos.
+- Inicia con un movimiento de aperturas invertidas, llevando las manos hacia los lados.
+- Mantén los codos extendidos durante el movimiento, llevando la banda hacia el pecho. Mantén los hombros hacia atrás durante el ejercicio.
+- Haz una pausa al completar el movimiento y regresa con control a la posición inicial.
+
+## Band_Skull_Crusher
+Rompecráneos con banda
+- Fija una banda en la base de un rack o del banco. Acuéstate en el banco con la banda alineada con tu cabeza.
+- Toma la banda y sube los codos para que los brazos queden perpendiculares al piso. Con el codo flexionado, la banda debe quedar arriba de tu cabeza. Esta es tu posición inicial.
+- Extiende el codo para estirar el brazo, sin mover la parte superior del brazo. Haz una pausa arriba y regresa a la posición inicial.
+
+## Barbell_Ab_Rollout
+Rodada abdominal con barra
+- Para este ejercicio colócate en posición de lagartija, pero en lugar de apoyar las manos en el piso, sujeta una barra olímpica (con 2-5 kg por lado). Esta es tu posición inicial.
+- Manteniendo un ligero arco en la espalda, sube la cadera y rueda la barra hacia tus pies mientras exhalas. Consejo: al hacerlo, los glúteos suben, el abdomen se mantiene apretado y la postura de la espalda no cambia. Los brazos deben permanecer perpendiculares al piso; si no, trabajarás más hombros y espalda que abdomen.
+- Tras contraer un segundo arriba, rueda la barra lentamente hacia adelante a la posición inicial mientras inhalas.
+- Repite las repeticiones recomendadas.
+
+## Barbell_Ab_Rollout_-_On_Knees
+Rodada abdominal con barra (de rodillas)
+- Sujeta una barra olímpica con 2-5 kg por lado y arrodíllate en el piso.
+- Coloca la barra en el piso frente a ti, de modo que quedes apoyado en manos y rodillas (como en una lagartija con rodillas). Esta es tu posición inicial.
+- Rueda lentamente la barra hacia adelante, estirando el cuerpo hasta quedar recto. Consejo: baja lo más que puedas sin tocar el piso con el cuerpo. Inhala durante esta parte del movimiento.
+- Tras una pausa de un segundo estirado, jala tu cuerpo de regreso a la posición inicial mientras exhalas. Consejo: ve despacio y mantén el abdomen apretado en todo momento.
+
+## Barbell_Bench_Press_-_Medium_Grip
+Press de banca con barra (agarre medio)
+- Acuéstate en un banco plano. Con agarre medio (el que forma un ángulo de 90 grados entre antebrazo y brazo a mitad del movimiento), saca la barra del soporte y sostenla recta sobre ti con los brazos bloqueados. Esta es tu posición inicial.
+- Desde ahí, inhala y baja lentamente hasta que la barra toque la mitad del pecho.
+- Tras una breve pausa, empuja la barra a la posición inicial mientras exhalas. Concéntrate en empujar con los pectorales. Bloquea los brazos y aprieta el pecho arriba, mantén un segundo y vuelve a bajar despacio. Consejo: idealmente, bajar el peso debe tomar el doble de tiempo que subirlo.
+- Repite el movimiento las veces indicadas.
+- Al terminar, regresa la barra al soporte.
+
+## Barbell_Curl
+Curl con barra
+- Párate con el torso erguido sosteniendo una barra con agarre a la anchura de los hombros. Las palmas deben mirar al frente y los codos estar cerca del torso. Esta es tu posición inicial.
+- Manteniendo fijos los brazos, sube el peso contrayendo los bíceps mientras exhalas. Consejo: solo deben moverse los antebrazos.
+- Continúa hasta que los bíceps estén completamente contraídos y la barra quede a la altura de los hombros. Mantén la contracción un segundo apretando fuerte los bíceps.
+- Baja lentamente la barra a la posición inicial mientras inhalas.
+- Repite las repeticiones recomendadas.
+
+## Barbell_Curls_Lying_Against_An_Incline
+Curl con barra recostado en banco inclinado
+- Recuéstate de frente contra un banco inclinado, sosteniendo una barra con los brazos colgando. Esta es tu posición inicial.
+- Manteniendo fijos los brazos, sube el peso lo más alto posible apretando los bíceps. Exhala durante esta parte del movimiento. Consejo: solo deben moverse los antebrazos. No balancees los brazos.
+- Tras contraer un segundo, regresa lentamente a la posición inicial mientras inhalas. Consejo: asegúrate de bajar por completo.
+- Repite las repeticiones recomendadas.
+
+## Barbell_Deadlift
+Peso muerto con barra
+- Párate frente a una barra cargada.
+- Con la espalda lo más recta posible, flexiona las rodillas, inclínate y toma la barra con agarre prono medio (a la anchura de los hombros). Esta es la posición inicial. Consejo: si te cuesta sostener la barra con este agarre, usa agarre mixto o straps.
+- Con la barra sujeta, inicia el levantamiento empujando con las piernas mientras llevas el torso a la vertical y exhalas. Ya erguido, saca el pecho y contrae la espalda llevando los omóplatos atrás, como un soldado en posición de firmes.
+- Regresa a la posición inicial flexionando las rodillas mientras inclinas el torso hacia adelante desde la cadera, con la espalda recta. Cuando los discos toquen el piso estarás de nuevo en la posición inicial, listo para otra repetición.
+- Haz las repeticiones indicadas en tu programa.
+
+## Barbell_Full_Squat
+Sentadilla profunda con barra
+- Por seguridad, es mejor hacerlo dentro de un rack de sentadillas. Primero coloca la barra en el rack justo por encima de la altura de los hombros. Con la altura correcta y la barra cargada, colócate debajo y apoya la parte trasera de los hombros (justo debajo del cuello) sobre ella.
+- Sujeta la barra con ambas manos a los lados y sácala del rack empujando con las piernas mientras enderezas el torso.
+- Aléjate del rack y coloca los pies a la anchura de los hombros con las puntas ligeramente hacia afuera. Mantén la cabeza arriba y la espalda recta en todo momento. Esta es tu posición inicial.
+- Baja lentamente flexionando las rodillas y llevando la cadera hacia atrás, manteniendo la postura recta y la cabeza arriba. Baja hasta que los isquiotibiales toquen las pantorrillas. Inhala durante esta parte del movimiento.
+- Sube mientras exhalas, empujando el piso con el talón o la parte media del pie, estirando las piernas y extendiendo la cadera hasta la posición inicial.
+- Repite las repeticiones recomendadas.
+
+## Barbell_Glute_Bridge
+Puente de glúteo con barra
+- Siéntate en el piso con una barra cargada sobre las piernas. Usar una barra gruesa o una almohadilla reduce mucho la incomodidad. Rueda la barra hasta que quede justo sobre la cadera y acuéstate boca arriba.
+- Empuja con los talones extendiendo la cadera hacia arriba contra la barra. El peso debe apoyarse en la parte alta de la espalda y en los talones.
+- Extiende lo más posible y luego invierte el movimiento para regresar a la posición inicial.
+
+## Barbell_Guillotine_Bench_Press
+Press de banca guillotina con barra
+- Con agarre medio (el que forma 90 grados entre antebrazo y brazo a mitad del movimiento), saca la barra del soporte y sostenla recta sobre tu cuello con los brazos bloqueados. Esta es tu posición inicial.
+- Mientras inhalas, baja la barra lentamente hasta que quede a unos 2-3 cm del cuello.
+- Tras una pausa de un segundo, sube la barra a la posición inicial mientras exhalas, empujando con los pectorales. Bloquea los brazos y aprieta el pecho, mantén un segundo y vuelve a bajar despacio. Bajar debe tomar al menos el doble de tiempo que subir.
+- Repite el movimiento las veces indicadas.
+- Al terminar, regresa la barra al soporte.
