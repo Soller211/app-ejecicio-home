@@ -3,12 +3,15 @@
 	import { onMount } from 'svelte';
 	import { page } from '$app/state';
 	import { asegurarCatalogo } from '#lib/catalogo.svelte.ts';
+	import { guardarFotosDeRutinas } from '#lib/fotos.svelte.ts';
 	import type { LayoutProps } from './$types';
 
 	let { children }: LayoutProps = $props();
 
-	onMount(() => {
-		asegurarCatalogo();
+	onMount(async () => {
+		await asegurarCatalogo();
+		// Así las fotos de tus rutinas funcionan en el gym aunque no haya señal.
+		guardarFotosDeRutinas();
 	});
 
 	const tabs = [

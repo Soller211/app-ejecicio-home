@@ -12,7 +12,9 @@
 
 	let cuadro = $state(0);
 	let fallo = $state(false);
-	const hay = $derived(imagenes.length > 0 && !!catalogo.imagenesBase && !fallo);
+	const hay = $derived(
+		imagenes.length > 0 && (imagenes[0].startsWith('/') || !!catalogo.imagenesBase) && !fallo
+	);
 
 	$effect(() => {
 		if (tamano !== 'grande' || imagenes.length < 2) return;
@@ -22,7 +24,7 @@
 </script>
 
 {#if tamano === 'mini'}
-	<div class="mini" aria-hidden="true">
+	<div class="mini" class:ilustracion={imagenes[0]?.startsWith('/')} aria-hidden="true">
 		{#if hay}
 			<img src={urlImagen(imagenes[0])} alt="" loading="lazy" crossorigin="anonymous" onerror={() => (fallo = true)} />
 		{:else}
@@ -42,7 +44,9 @@
 			/>
 		{/each}
 		{#if imagenes.length > 1}
-			<span class="paso">{cuadro === 0 ? 'Inicio' : 'Final'}</span>
+			<span class="paso">
+				{imagenes.length === 2 ? (cuadro === 0 ? 'Inicio' : 'Final') : `Paso ${cuadro + 1} de ${imagenes.length}`}
+			</span>
 		{/if}
 	</div>
 {/if}
@@ -63,6 +67,13 @@
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
+	}
+	.mini.ilustracion {
+		background: #fff;
+	}
+	.mini.ilustracion img {
+		object-fit: contain;
+		transform: scale(1.5);
 	}
 	.grande {
 		position: relative;

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-label="rodillas-al-pecho-1">
+<rect width="400" height="300" fill="#ffffff"/>
+<line x1="20" y1="276" x2="380" y2="276" stroke="#d3d8e0" stroke-width="6" stroke-linecap="round"/>
+
+<polyline points="200,90 222,126 242,104" fill="none" stroke="#9aa3b5" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="196,170 196,222 194,270" fill="none" stroke="#9aa3b5" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="200,90 196,170" fill="none" stroke="#2b3240" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="196,170 242,160 236,212" fill="none" stroke="#2b3240" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="200,90 180,128 170,160" fill="none" stroke="#2b3240" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="206" cy="58" r="21" fill="#2b3240"/>
+
+</svg>

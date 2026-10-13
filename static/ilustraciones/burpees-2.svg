@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-label="burpees-2">
+<rect width="400" height="300" fill="#ffffff"/>
+<line x1="20" y1="276" x2="380" y2="276" stroke="#d3d8e0" stroke-width="6" stroke-linecap="round"/>
+
+<polyline points="232,150 246,210 258,270" fill="none" stroke="#9aa3b5" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="172,205 210,214 186,270" fill="none" stroke="#9aa3b5" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="232,150 172,205" fill="none" stroke="#2b3240" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="172,205 222,214 198,270" fill="none" stroke="#2b3240" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="232,150 252,210 266,270" fill="none" stroke="#2b3240" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="258" cy="128" r="21" fill="#2b3240"/>
+
+</svg>

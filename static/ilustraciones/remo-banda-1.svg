@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-label="remo-banda-1">
+<rect width="400" height="300" fill="#ffffff"/>
+<line x1="20" y1="276" x2="380" y2="276" stroke="#d3d8e0" stroke-width="6" stroke-linecap="round"/>
+
+<polyline points="178,158 226,196 272,226" fill="none" stroke="#9aa3b5" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="146,246 212,246 282,260" fill="none" stroke="#9aa3b5" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="178,158 146,246" fill="none" stroke="#2b3240" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="146,246 216,250 290,266" fill="none" stroke="#2b3240" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="178,158 232,202 280,232" fill="none" stroke="#2b3240" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="196" cy="128" r="21" fill="#2b3240"/>
+<polyline points="276,229 300,246 276,235" fill="none" stroke="#13a456" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

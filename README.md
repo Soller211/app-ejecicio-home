@@ -48,7 +48,8 @@ npm run preview    # prueba el build (incluye el service worker)
   ```
 
 - `npm run catalogo` valida las traducciones (mismo número de pasos que el original) y genera `static/catalogo-ejercicios.json`, que la app importa a IndexedDB la primera vez que abre (y cuando cambia la versión).
-- Las fotos no se incluyen en la app: se cargan desde GitHub la primera vez que las ves y quedan guardadas para usarlas sin internet.
+- Las fotos (~1,750, unos 100 MB) se descargan de GitHub y quedan guardadas en el teléfono para usarlas sin internet: las de tus rutinas se guardan solas, y en **Ajustes → Fotos de los ejercicios** puedes descargarlas todas.
+- Los básicos sin foto en el catálogo (burpees, jumping jacks, etc.) usan ilustraciones propias en `static/ilustraciones/`, generadas con `python3 scripts/ilustraciones.py`.
 - Los ejercicios básicos de la app (`src/lib/seed.ts`, `REFERENCIAS`) se enlazan con su equivalente del catálogo para tomar sus fotos e instrucciones.
 
 ## Publicarlo

@@ -1,4 +1,5 @@
 import { db, type Ejercicio } from './db';
+import { ILUSTRACIONES, INSTRUCCIONES_PROPIAS, REFERENCIAS, VERSION_BASICOS } from './seed';
 
 /** Ejercicio tal como viene en static/catalogo-ejercicios.json */
 type DelCatalogo = Required<
@@ -32,8 +33,8 @@ export const catalogo = $state({
 
 const URL_CATALOGO = '/catalogo-ejercicios.json';
 
-/** URL completa de una imagen del catálogo. */
-export const urlImagen = (ruta: string) => catalogo.imagenesBase + ruta;
+/** URL completa de una imagen: rutas con "/" son ilustraciones propias; el resto, fotos del catálogo. */
+export const urlImagen = (ruta: string) => (ruta.startsWith('/') ? ruta : catalogo.imagenesBase + ruta);
 
 /**
  * Importa (o actualiza) los ~870 ejercicios de free-exercise-db en IndexedDB.
@@ -50,13 +51,14 @@ export async function asegurarCatalogo() {
 		if (!res.ok) throw new Error(`HTTP ${res.status}`);
 		const datos = (await res.json()) as Catalogo;
 		catalogo.imagenesBase = datos.imagenesBase;
-		if (guardada?.valor === datos.version) {
+		const version = `${datos.version}-${VERSION_BASICOS}`;
+		if (guardada?.valor === version) {
 			catalogo.estado = 'listo';
 			return;
 		}
 
 		catalogo.estado = 'cargando';
-		await importar(datos);
+		await importar(datos, version);
 		catalogo.estado = 'listo';
 	} catch (e) {
 		console.warn('No se pudo cargar el catálogo de ejercicios', e);
@@ -65,26 +67,36 @@ export async function asegurarCatalogo() {
 	}
 }
 
-async function importar(datos: Catalogo) {
+async function importar(datos: Catalogo, version: string) {
 	const porId = new Map(datos.ejercicios.map((e) => [e.externoId, e]));
 
-	await db.transaction('rw', db.ejercicios, db.meta, async () => {
+	await db.transaction('rw', db.ejercicios, db.meta, db.rutinas, async () => {
 		const existentes = await db.ejercicios.toArray();
 		const enlazados = new Set<string>();
 		const actualizaciones: { key: number; changes: Partial<Ejercicio> }[] = [];
 
 		// 1) Ejercicios base: conservan su nombre y datos, pero toman imágenes e instrucciones.
 		for (const e of existentes) {
-			const id = e.fuente === 'app' ? e.ref : undefined;
+			if (e.fuente !== 'app') continue;
+			const id = REFERENCIAS[e.nombre] ?? e.ref;
 			const c = id && porId.get(id);
-			if (!c) continue;
+			if (!c) {
+				const imagenes = ILUSTRACIONES[e.nombre];
+				const instrucciones = INSTRUCCIONES_PROPIAS[e.nombre];
+				if (imagenes || instrucciones)
+					actualizaciones.push({ key: e.id, changes: { imagenes, instrucciones } });
+				continue;
+			}
 			enlazados.add(c.externoId);
 			actualizaciones.push({
 				key: e.id,
 				changes: {
+					ref: c.externoId,
 					externoId: c.externoId,
 					imagenes: c.imagenes,
-					instrucciones: c.instrucciones.length ? c.instrucciones : e.instrucciones,
+					instrucciones: c.instrucciones.length
+						? c.instrucciones
+						: (INSTRUCCIONES_PROPIAS[e.nombre] ?? e.instrucciones),
 					musculos: c.musculos,
 					secundarios: c.secundarios,
 					nivel: c.nivel,
@@ -105,10 +117,18 @@ async function importar(datos: Catalogo) {
 			else nuevos.push({ ...c, fuente: 'catalogo' });
 		}
 
+		// Copias del catálogo que ahora representa un ejercicio base: sobran si ninguna rutina las usa.
+		const enRutinas = new Set((await db.rutinas.toArray()).flatMap((r) => r.items.map((i) => i.ejercicioId)));
+		const sobran = existentes
+			.filter((e) => e.fuente === 'catalogo' && e.externoId && enlazados.has(e.externoId))
+			.filter((e) => !enRutinas.has(e.id))
+			.map((e) => e.id);
+
+		await db.ejercicios.bulkDelete(sobran);
 		await db.ejercicios.bulkUpdate(actualizaciones);
 		await db.ejercicios.bulkAdd(nuevos as Ejercicio[]);
 		await db.meta.bulkPut([
-			{ clave: 'catalogo', valor: datos.version },
+			{ clave: 'catalogo', valor: version },
 			{ clave: 'imagenesBase', valor: datos.imagenesBase }
 		]);
 	});

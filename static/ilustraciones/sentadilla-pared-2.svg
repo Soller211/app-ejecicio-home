@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-label="sentadilla-pared-2">
+<rect width="400" height="300" fill="#ffffff"/>
+<line x1="20" y1="276" x2="380" y2="276" stroke="#d3d8e0" stroke-width="6" stroke-linecap="round"/>
+<rect x="96" y="20" width="24" height="256" fill="#d3d8e0"/>
+<polyline points="140,144 176,156 208,150" fill="none" stroke="#9aa3b5" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="140,218 212,214 210,270" fill="none" stroke="#9aa3b5" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="140,144 140,218" fill="none" stroke="#2b3240" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="140,218 220,218 220,270" fill="none" stroke="#2b3240" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="140,144 180,166 212,160" fill="none" stroke="#2b3240" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="144" cy="112" r="21" fill="#2b3240"/>
+
+</svg>

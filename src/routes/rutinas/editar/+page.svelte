@@ -6,6 +6,7 @@
 	import { db, type Ejercicio, type ItemRutina, type Lugar, type Rutina } from '#lib/db.ts';
 	import ImagenesEjercicio from '#lib/components/ImagenesEjercicio.svelte';
 	import SelectorEjercicio from '#lib/components/SelectorEjercicio.svelte';
+	import { guardarFotosDeRutinas } from '#lib/fotos.svelte.ts';
 
 	let id = $state<number | undefined>();
 	let nombre = $state('');
@@ -54,6 +55,7 @@
 		};
 		if (id) await db.rutinas.update(id, datos);
 		else await db.rutinas.add({ ...datos, creada: new Date().toISOString() } as Rutina);
+		guardarFotosDeRutinas();
 		goto('/rutinas');
 	}
 

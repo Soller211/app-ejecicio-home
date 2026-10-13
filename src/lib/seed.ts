@@ -17,7 +17,9 @@ const e = (
 	tipo,
 	fuente: 'app',
 	...(notas ? { notas } : {}),
-	...(REFERENCIAS[nombre] ? { ref: REFERENCIAS[nombre] } : {})
+	...(REFERENCIAS[nombre] ? { ref: REFERENCIAS[nombre] } : {}),
+	...(ILUSTRACIONES[nombre] ? { imagenes: ILUSTRACIONES[nombre] } : {}),
+	...(INSTRUCCIONES_PROPIAS[nombre] ? { instrucciones: INSTRUCCIONES_PROPIAS[nombre] } : {})
 });
 
 export const MUSCULOS = [
@@ -99,8 +101,79 @@ export const REFERENCIAS: Record<string, string> = {
 	'Curl femoral': 'Lying_Leg_Curls',
 	'Hip thrust con barra': 'Barbell_Hip_Thrust',
 	Caminadora: 'Jogging_Treadmill',
-	'Bicicleta estática': 'Bicycling_Stationary'
+	'Bicicleta estática': 'Bicycling_Stationary',
+	'Elevación de talones': 'Standing_Dumbbell_Calf_Raise',
+	'Swing con kettlebell': 'One-Arm_Kettlebell_Swings'
 };
+
+/** Ilustraciones propias (static/ilustraciones, scripts/ilustraciones.py) para básicos sin foto en el catálogo. */
+const ilus = (nombre: string, cuadros: number) =>
+	Array.from({ length: cuadros }, (_, i) => `/ilustraciones/${nombre}-${i + 1}.svg`);
+
+export const ILUSTRACIONES: Record<string, string[]> = {
+	'Jumping jacks': ilus('jumping-jacks', 2),
+	Burpees: ilus('burpees', 4),
+	'Rodillas al pecho': ilus('rodillas-al-pecho', 2),
+	'Sentadilla isométrica en pared': ilus('sentadilla-pared', 2),
+	'Pike push-ups': ilus('pike-push-up', 2),
+	'Remo con banda elástica': ilus('remo-banda', 2)
+};
+
+/** Instrucciones para los básicos que no tienen equivalente en el catálogo. */
+export const INSTRUCCIONES_PROPIAS: Record<string, string[]> = {
+	'Jumping jacks': [
+		'Párate con los pies juntos y los brazos a los lados.',
+		'Salta abriendo las piernas un poco más que los hombros mientras subes los brazos por los lados hasta arriba de la cabeza.',
+		'Salta de nuevo para regresar a la posición inicial.',
+		'Mantén un ritmo constante y cae suave sobre la parte delantera de los pies.'
+	],
+	Burpees: [
+		'Párate con los pies a la anchura de los hombros.',
+		'Baja en cuclillas y apoya las manos en el piso frente a ti.',
+		'Salta llevando los pies hacia atrás hasta quedar en plancha. Si quieres más reto, haz una lagartija.',
+		'Salta trayendo los pies de regreso junto a las manos.',
+		'Ponte de pie y salta con los brazos arriba. Versión más fácil: da pasos hacia atrás y adelante en lugar de saltar.'
+	],
+	'Rodillas al pecho': [
+		'De pie, corre en tu lugar subiendo las rodillas a la altura de la cadera.',
+		'Mueve los brazos como al correr, con los codos flexionados.',
+		'Cae sobre la parte delantera de los pies, con el torso erguido y el abdomen firme.',
+		'Mantén el ritmo durante el tiempo indicado.'
+	],
+	'Sentadilla isométrica en pared': [
+		'Recarga la espalda en la pared y separa los pies unos 50 cm de ella, a la anchura de la cadera.',
+		'Deslízate hacia abajo hasta que los muslos queden paralelos al piso y las rodillas justo encima de los tobillos.',
+		'Mantén la posición con la espalda pegada a la pared durante el tiempo indicado. Respira normalmente.',
+		'Sube deslizándote por la pared para terminar.'
+	],
+	'Pike push-ups': [
+		'Colócate en posición de lagartija y sube la cadera formando una "V" invertida, con las piernas lo más rectas posible.',
+		'Flexiona los codos y baja la cabeza hacia el piso, entre las manos.',
+		'Empuja hasta estirar los brazos.',
+		'Para hacerlo más difícil, apoya los pies en una silla o escalón.'
+	],
+	'Plancha lateral': [
+		'Acuéstate de lado apoyado en el antebrazo, con el codo justo debajo del hombro y las piernas estiradas una sobre otra.',
+		'Eleva la cadera hasta que el cuerpo forme una línea recta de la cabeza a los pies.',
+		'Mantén la posición con el abdomen firme, sin dejar caer la cadera, durante el tiempo indicado.',
+		'Cambia de lado. Versión más fácil: apoya la rodilla de abajo en el piso.'
+	],
+	'Swing con kettlebell': [
+		'Párate con los pies un poco más abiertos que los hombros y la kettlebell en el piso frente a ti.',
+		'Lleva la cadera atrás con la espalda recta, toma la kettlebell con ambas manos y balancéala hacia atrás entre las piernas.',
+		'Extiende la cadera con fuerza, apretando los glúteos, para que la kettlebell suba hasta la altura del pecho con los brazos estirados. El impulso sale de la cadera, no de los brazos.',
+		'Deja que baje de nuevo entre las piernas llevando la cadera atrás y repite sin pausa.'
+	],
+	'Remo con banda elástica': [
+		'Siéntate en el piso con las piernas estiradas y pasa la banda por la planta de los pies.',
+		'Toma los extremos con los brazos estirados y la espalda recta.',
+		'Jala hacia el abdomen llevando los codos hacia atrás y juntando los omóplatos.',
+		'Regresa despacio y con control a la posición inicial.'
+	]
+};
+
+/** Súbelo al cambiar REFERENCIAS o ILUSTRACIONES para que la app vuelva a enlazar los básicos. */
+export const VERSION_BASICOS = 2;
 
 export const EJERCICIOS_BASE: Base[] = [
 	// Casa, sin equipo
