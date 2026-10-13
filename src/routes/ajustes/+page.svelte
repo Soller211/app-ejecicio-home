@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { borrarTodo, exportarDatos, importarDatos, type Respaldo } from '#lib/db.ts';
 	import { guardarEnCurso } from '#lib/sesion.ts';
+	import { asegurarCatalogo } from '#lib/catalogo.svelte.ts';
 	import { descargar, hoyISO } from '#lib/util.ts';
 
 	let mensaje = $state('');
@@ -19,6 +20,7 @@
 		if (!confirm('Esto reemplazará TODOS tus datos actuales por los del respaldo. ¿Continuar?')) return;
 		try {
 			await importarDatos(JSON.parse(await archivo.text()) as Respaldo);
+			await asegurarCatalogo();
 			mensaje = 'Datos restaurados ✅';
 		} catch (e) {
 			mensaje = `No se pudo importar: ${(e as Error).message}`;
@@ -29,6 +31,7 @@
 		if (!confirm('¿Borrar TODO (rutinas, historial, medidas)? No se puede deshacer.')) return;
 		guardarEnCurso(null);
 		await borrarTodo();
+		await asegurarCatalogo();
 		mensaje = 'Datos borrados. Se restauraron los ejercicios y rutinas de ejemplo.';
 	}
 </script>

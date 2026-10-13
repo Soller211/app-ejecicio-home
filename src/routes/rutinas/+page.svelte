@@ -24,7 +24,7 @@
 			{#each r.items as it, i (i)}
 				{@const e = $ejercicios?.get(it.ejercicioId)}
 				<li>
-					{e?.nombre ?? 'Ejercicio eliminado'}
+					{e?.nombre ?? ($ejercicios ? 'Ejercicio eliminado' : '…')}
 					<span class="muted">
 						{it.series} × {it.segundos != null ? `${it.segundos}s` : `${it.reps} reps`}
 					</span>

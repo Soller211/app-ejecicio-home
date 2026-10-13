@@ -3,26 +3,18 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
 	import { liveQuery } from 'dexie';
-	import { db, type ItemRutina, type Lugar, type Rutina } from '#lib/db.ts';
-	import { MUSCULOS } from '#lib/seed.ts';
+	import { db, type Ejercicio, type ItemRutina, type Lugar, type Rutina } from '#lib/db.ts';
+	import ImagenesEjercicio from '#lib/components/ImagenesEjercicio.svelte';
+	import SelectorEjercicio from '#lib/components/SelectorEjercicio.svelte';
 
 	let id = $state<number | undefined>();
 	let nombre = $state('');
 	let descripcion = $state('');
 	let lugar = $state<Lugar>('casa');
 	let items = $state<ItemRutina[]>([]);
-	let filtroMusculo = $state('');
-	let agregarId = $state<number | ''>('');
 
 	const ejercicios = liveQuery(() => db.ejercicios.orderBy('nombre').toArray());
 	const porId = $derived(new Map(($ejercicios ?? []).map((e) => [e.id, e])));
-	const opciones = $derived(
-		($ejercicios ?? []).filter(
-			(e) =>
-				(!filtroMusculo || e.musculo === filtroMusculo) &&
-				(lugar === 'ambos' || e.lugar === 'ambos' || e.lugar === lugar)
-		)
-	);
 
 	onMount(async () => {
 		const q = Number(page.url.searchParams.get('id'));
@@ -36,15 +28,12 @@
 		items = r.items;
 	});
 
-	function agregar() {
-		const e = porId.get(Number(agregarId));
-		if (!e) return;
+	function agregar(e: Ejercicio) {
 		items.push(
 			e.tipo === 'tiempo'
 				? { ejercicioId: e.id, series: 3, segundos: 30, descansoSeg: 45 }
 				: { ejercicioId: e.id, series: 3, reps: 10, descansoSeg: 60 }
 		);
-		agregarId = '';
 	}
 
 	function mover(i: number, d: number) {
@@ -95,7 +84,10 @@
 	{@const e = porId.get(it.ejercicioId)}
 	<div class="card">
 		<div class="spread">
-			<h3>{i + 1}. {e?.nombre ?? '—'}</h3>
+			<div class="row titulo">
+				<ImagenesEjercicio imagenes={e?.imagenes} nombre={e?.nombre ?? ''} tamano="mini" />
+				<h3>{i + 1}. {e?.nombre ?? '—'}</h3>
+			</div>
 			<div class="row">
 				<button class="small ghost" onclick={() => mover(i, -1)} aria-label="Subir">↑</button>
 				<button class="small ghost" onclick={() => mover(i, 1)} aria-label="Bajar">↓</button>
@@ -118,19 +110,7 @@
 
 <div class="card stack">
 	<h3>Agregar ejercicio</h3>
-	<select bind:value={filtroMusculo}>
-		<option value="">Todos los músculos</option>
-		{#each MUSCULOS as m (m)}<option value={m}>{m}</option>{/each}
-	</select>
-	<div class="row">
-		<select bind:value={agregarId} style="flex:1;min-width:0">
-			<option value="">Elige…</option>
-			{#each opciones as e (e.id)}
-				<option value={e.id}>{e.nombre} · {e.equipo}</option>
-			{/each}
-		</select>
-		<button onclick={agregar} disabled={agregarId === ''}>Agregar</button>
-	</div>
+	{#key lugar}<SelectorEjercicio {lugar} onelegir={agregar} />{/key}
 	<p class="muted">¿No está? <a href="/ejercicios">Crea un ejercicio propio</a>.</p>
 </div>
 
@@ -141,6 +121,13 @@
 </div>
 
 <style>
+	.titulo {
+		flex-wrap: nowrap;
+		min-width: 0;
+	}
+	.titulo h3 {
+		margin: 0;
+	}
 	.grid3 {
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);

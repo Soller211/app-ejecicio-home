@@ -14,6 +14,9 @@
 		type SesionEnCurso
 	} from '#lib/sesion.ts';
 	import { duracion, pitido, vibrar } from '#lib/util.ts';
+	import type { Ejercicio } from '#lib/db.ts';
+	import DetalleEjercicio from '#lib/components/DetalleEjercicio.svelte';
+	import SelectorEjercicio from '#lib/components/SelectorEjercicio.svelte';
 
 	let s = $state<SesionEnCurso | null>(null);
 	let ahora = $state(Date.now());
@@ -22,10 +25,11 @@
 	let terminando = $state(false);
 	let esfuerzo = $state(7);
 	let notas = $state('');
-	let agregarId = $state<number | ''>('');
+	let tecnica = $state<number | null>(null);
+	let agregando = $state(false);
 	let error = $state('');
 
-	const catalogo = liveQuery(() => db.ejercicios.orderBy('nombre').toArray());
+	const ejercicios = liveQuery(async () => new Map((await db.ejercicios.toArray()).map((e) => [e.id, e])));
 
 	onMount(() => {
 		(async () => {
@@ -128,12 +132,10 @@
 		if (s && confirm(`¿Quitar ${s.ejercicios[ei].nombre} de este entreno?`)) s.ejercicios.splice(ei, 1);
 	}
 
-	async function agregarEjercicio() {
-		if (!s || agregarId === '') return;
-		const ej = await db.ejercicios.get(agregarId);
-		if (!ej) return;
+	async function agregarEjercicio(ej: Ejercicio) {
+		if (!s) return;
 		s.ejercicios.push(await ejercicioParaSesion(ej, 3, { reps: 10, segundos: 30 }, 60));
-		agregarId = '';
+		agregando = false;
 	}
 
 	async function guardar() {
@@ -188,6 +190,14 @@
 					<button class="small ghost danger" onclick={() => quitarEjercicio(ei)} aria-label="Quitar">✕</button>
 				</div>
 			</div>
+			{#if $ejercicios?.get(ej.ejercicioId)?.instrucciones?.length || $ejercicios?.get(ej.ejercicioId)?.imagenes?.length || $ejercicios?.get(ej.ejercicioId)?.notas}
+				<button class="small ghost tec" onclick={() => (tecnica = tecnica === ei ? null : ei)} aria-expanded={tecnica === ei}>
+					{tecnica === ei ? 'Ocultar técnica' : 'ℹ️ Ver técnica'}
+				</button>
+				{#if tecnica === ei}
+					<DetalleEjercicio ejercicio={$ejercicios.get(ej.ejercicioId)!} />
+				{/if}
+			{/if}
 			<label class="rest-cfg">
 				Descanso
 				<input type="number" min="0" step="15" bind:value={ej.descansoSeg} /> s
@@ -225,18 +235,17 @@
 		</section>
 	{/each}
 
-	<div class="card">
-		<h3>Agregar ejercicio</h3>
-		<div class="row add">
-			<select bind:value={agregarId}>
-				<option value="">Elige un ejercicio…</option>
-				{#each $catalogo ?? [] as c (c.id)}
-					<option value={c.id}>{c.nombre} · {c.musculo}</option>
-				{/each}
-			</select>
-			<button onclick={agregarEjercicio} disabled={agregarId === ''}>Agregar</button>
+	{#if agregando}
+		<div class="card stack">
+			<div class="spread">
+				<h3>Agregar ejercicio</h3>
+				<button class="small ghost" onclick={() => (agregando = false)}>Cerrar</button>
+			</div>
+			<SelectorEjercicio onelegir={agregarEjercicio} />
 		</div>
-	</div>
+	{:else}
+		<button class="block" onclick={() => (agregando = true)}>+ Agregar ejercicio</button>
+	{/if}
 
 	<button class="ghost danger block" onclick={descartar}>Descartar entreno</button>
 
@@ -362,9 +371,10 @@
 		border-color: var(--accent);
 		color: var(--accent-ink);
 	}
-	.add select {
-		flex: 1;
-		min-width: 0;
+	.tec {
+		padding-left: 0;
+		color: var(--accent);
+		margin-bottom: 6px;
 	}
 	.overlay {
 		position: fixed;

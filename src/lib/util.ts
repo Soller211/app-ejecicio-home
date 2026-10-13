@@ -91,3 +91,7 @@ export const pitido = () => {
 		/* sin audio */
 	}
 };
+
+/** Texto en minúsculas y sin acentos, para búsquedas. */
+export const normalizar = (t: string) =>
+	t.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase();

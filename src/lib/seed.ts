@@ -9,7 +9,16 @@ const e = (
 	lugar: Ejercicio['lugar'],
 	tipo: Ejercicio['tipo'] = 'reps',
 	notas?: string
-): Base => ({ nombre, musculo, equipo, lugar, tipo, ...(notas ? { notas } : {}) });
+): Base => ({
+	nombre,
+	musculo,
+	equipo,
+	lugar,
+	tipo,
+	fuente: 'app',
+	...(notas ? { notas } : {}),
+	...(REFERENCIAS[nombre] ? { ref: REFERENCIAS[nombre] } : {})
+});
 
 export const MUSCULOS = [
 	'Pecho',
@@ -20,6 +29,8 @@ export const MUSCULOS = [
 	'Piernas',
 	'Glúteos',
 	'Core',
+	'Antebrazos',
+	'Cuello',
 	'Cardio',
 	'Cuerpo completo'
 ];
@@ -33,8 +44,63 @@ export const EQUIPOS = [
 	'Barra de dominadas',
 	'Silla / banco',
 	'Polea',
-	'Máquina'
+	'Máquina',
+	'Barra Z',
+	'Pelota de ejercicio',
+	'Balón medicinal',
+	'Rodillo de espuma',
+	'Otro'
 ];
+
+export const NIVELES = ['principiante', 'intermedio', 'avanzado'] as const;
+
+/**
+ * Ejercicios base enlazados con su equivalente en free-exercise-db: al importar el catálogo
+ * toman de ahí imágenes, instrucciones y músculos, y el duplicado del catálogo no se muestra.
+ */
+export const REFERENCIAS: Record<string, string> = {
+	Sentadilla: 'Bodyweight_Squat',
+	Zancadas: 'Bodyweight_Walking_Lunge',
+	'Sentadilla búlgara': 'Split_Squat_with_Dumbbells',
+	'Puente de glúteo': 'Butt_Lift_Bridge',
+	'Patada de glúteo en cuadrupedia': 'Glute_Kickback',
+	'Lagartijas (flexiones)': 'Pushups',
+	'Lagartijas inclinadas': 'Incline_Push-Up',
+	'Lagartijas declinadas': 'Decline_Push-Up',
+	'Fondos en silla': 'Bench_Dips',
+	'Lagartijas diamante': 'Push-Ups_-_Close_Triceps_Position',
+	Superman: 'Superman',
+	'Remo invertido en mesa': 'Inverted_Row',
+	Plancha: 'Plank',
+	'Plancha lateral': 'Side_Bridge',
+	'Crunch abdominal': 'Crunches',
+	'Elevación de piernas': 'Flat_Bench_Lying_Leg_Raise',
+	'Bicho muerto (dead bug)': 'Dead_Bug',
+	'Escaladores (mountain climbers)': 'Mountain_Climbers',
+	'Saltar la cuerda': 'Rope_Jumping',
+	Dominadas: 'Pullups',
+	'Remo con mancuerna': 'One-Arm_Dumbbell_Row',
+	'Curl de bíceps con mancuernas': 'Dumbbell_Bicep_Curl',
+	'Press de hombro con mancuernas': 'Dumbbell_Shoulder_Press',
+	'Elevaciones laterales': 'Side_Lateral_Raise',
+	'Peso muerto rumano con mancuernas': 'Stiff-Legged_Dumbbell_Deadlift',
+	'Sentadilla goblet': 'Goblet_Squat',
+	'Face pull con banda': 'Face_Pull',
+	'Press de banca': 'Barbell_Bench_Press_-_Medium_Grip',
+	'Press inclinado con mancuernas': 'Incline_Dumbbell_Press',
+	'Sentadilla con barra': 'Barbell_Squat',
+	'Peso muerto': 'Barbell_Deadlift',
+	'Press militar con barra': 'Standing_Military_Press',
+	'Jalón al pecho': 'Wide-Grip_Lat_Pulldown',
+	'Remo en polea baja': 'Seated_Cable_Rows',
+	'Extensión de tríceps en polea': 'Triceps_Pushdown',
+	'Prensa de piernas': 'Leg_Press',
+	'Extensión de cuádriceps': 'Leg_Extensions',
+	'Curl femoral': 'Lying_Leg_Curls',
+	'Hip thrust con barra': 'Barbell_Hip_Thrust',
+	Caminadora: 'Jogging_Treadmill',
+	'Bicicleta estática': 'Bicycling_Stationary'
+};
 
 export const EJERCICIOS_BASE: Base[] = [
 	// Casa, sin equipo

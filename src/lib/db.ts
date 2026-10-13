@@ -1,5 +1,5 @@
 import Dexie, { type EntityTable } from 'dexie';
-import { EJERCICIOS_BASE } from './seed';
+import { EJERCICIOS_BASE, REFERENCIAS } from './seed';
 
 export type Lugar = 'casa' | 'gym' | 'ambos';
 export type TipoEjercicio = 'reps' | 'tiempo';
@@ -13,6 +13,24 @@ export interface Ejercicio {
 	lugar: Lugar;
 	notas?: string;
 	personalizado?: boolean;
+	/** app = ejercicios base, catalogo = free-exercise-db, propio = creado por ti */
+	fuente?: 'app' | 'catalogo' | 'propio';
+	/** Id en free-exercise-db (para catálogo y ejercicios base enlazados) */
+	externoId?: string;
+	/** Ejercicio base: id de free-exercise-db del que toma imágenes e instrucciones */
+	ref?: string;
+	nivel?: 'principiante' | 'intermedio' | 'avanzado';
+	categoria?: string;
+	musculos?: string[];
+	secundarios?: string[];
+	/** Rutas relativas a imagenesBase del catálogo */
+	imagenes?: string[];
+	instrucciones?: string[];
+}
+
+export interface Meta {
+	clave: string;
+	valor: string;
 }
 
 export interface ItemRutina {
@@ -78,6 +96,7 @@ export const db = new Dexie('app-ejercicio') as Dexie & {
 	rutinas: EntityTable<Rutina, 'id'>;
 	sesiones: EntityTable<Sesion, 'id'>;
 	corporal: EntityTable<RegistroCorporal, 'id'>;
+	meta: EntityTable<Meta, 'clave'>;
 };
 
 db.version(1).stores({
@@ -86,6 +105,25 @@ db.version(1).stores({
 	sesiones: '++id, rutinaId, inicio',
 	corporal: '++id, fecha'
 });
+
+// v2: catálogo de free-exercise-db (externoId) y tabla meta.
+db.version(2)
+	.stores({
+		ejercicios: '++id, nombre, musculo, lugar, externoId',
+		meta: 'clave'
+	})
+	.upgrade((tx) =>
+		tx
+			.table('ejercicios')
+			.toCollection()
+			.modify((e: Ejercicio) => {
+				if (e.personalizado) e.fuente = 'propio';
+				else {
+					e.fuente = 'app';
+					if (REFERENCIAS[e.nombre]) e.ref = REFERENCIAS[e.nombre];
+				}
+			})
+	);
 
 db.on('populate', async (tx) => {
 	await tx.table('ejercicios').bulkAdd(EJERCICIOS_BASE);
@@ -167,8 +205,10 @@ export async function exportarDatos(): Promise<Respaldo> {
 
 export async function importarDatos(datos: Respaldo) {
 	if (datos?.app !== 'app-ejercicio') throw new Error('El archivo no es un respaldo de esta app.');
-	await db.transaction('rw', [db.ejercicios, db.rutinas, db.sesiones, db.corporal], async () => {
+	await db.transaction('rw', [db.ejercicios, db.rutinas, db.sesiones, db.corporal, db.meta], async () => {
 		await Promise.all([db.ejercicios.clear(), db.rutinas.clear(), db.sesiones.clear(), db.corporal.clear()]);
+		// Fuerza a revisar el catálogo por si el respaldo trae una versión anterior.
+		await db.meta.delete('catalogo');
 		await db.ejercicios.bulkAdd(datos.ejercicios);
 		await db.rutinas.bulkAdd(datos.rutinas);
 		await db.sesiones.bulkAdd(datos.sesiones);

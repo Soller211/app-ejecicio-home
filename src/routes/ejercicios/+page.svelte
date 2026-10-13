@@ -1,24 +1,42 @@
 <script lang="ts">
 	import { liveQuery } from 'dexie';
 	import { db, type Ejercicio, type Lugar, type TipoEjercicio } from '#lib/db.ts';
-	import { EQUIPOS, MUSCULOS } from '#lib/seed.ts';
+	import { EQUIPOS, MUSCULOS, NIVELES } from '#lib/seed.ts';
+	import { catalogo } from '#lib/catalogo.svelte.ts';
+	import { normalizar } from '#lib/util.ts';
+	import DetalleEjercicio from '#lib/components/DetalleEjercicio.svelte';
+	import ImagenesEjercicio from '#lib/components/ImagenesEjercicio.svelte';
 
 	const ejercicios = liveQuery(() => db.ejercicios.orderBy('nombre').toArray());
 
 	let busqueda = $state('');
 	let musculo = $state('');
 	let lugar = $state<'' | Lugar>('');
+	let equipo = $state('');
+	let nivel = $state('');
+	let fuente = $state<'' | 'basicos' | 'propios'>('');
 	let abierto = $state<number | null>(null);
+	let limite = $state(40);
 
-	const normal = (t: string) => t.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase();
-	const lista = $derived(
-		($ejercicios ?? []).filter(
+	const lista = $derived.by(() => {
+		const q = normalizar(busqueda.trim());
+		return ($ejercicios ?? []).filter(
 			(e) =>
-				(!busqueda || normal(e.nombre).includes(normal(busqueda))) &&
+				(!q || normalizar(e.nombre).includes(q)) &&
 				(!musculo || e.musculo === musculo) &&
-				(!lugar || e.lugar === lugar || e.lugar === 'ambos')
-		)
-	);
+				(!lugar || e.lugar === lugar || e.lugar === 'ambos') &&
+				(!equipo || e.equipo === equipo) &&
+				(!nivel || e.nivel === nivel) &&
+				(!fuente ||
+					(fuente === 'basicos' && e.fuente === 'app') ||
+					(fuente === 'propios' && e.fuente === 'propio'))
+		);
+	});
+
+	$effect(() => {
+		void busqueda, musculo, lugar, equipo, nivel, fuente;
+		limite = 40;
+	});
 
 	// Formulario de nuevo ejercicio
 	let creando = $state(false);
@@ -37,7 +55,8 @@
 			...$state.snapshot(nuevo),
 			nombre: nuevo.nombre.trim(),
 			notas: nuevo.notas.trim() || undefined,
-			personalizado: true
+			personalizado: true,
+			fuente: 'propio'
 		} as Ejercicio);
 		nuevo.nombre = '';
 		nuevo.notas = '';
@@ -57,6 +76,14 @@
 	<h1>Ejercicios</h1>
 	<button class="primary" onclick={() => (creando = !creando)}>{creando ? 'Cerrar' : '+ Nuevo'}</button>
 </div>
+
+{#if catalogo.estado === 'cargando'}
+	<p class="card aviso">Cargando el catálogo de ejercicios…</p>
+{:else if catalogo.estado === 'error'}
+	<p class="card aviso">
+		No se pudo descargar el catálogo completo (¿sin internet?). Se intentará de nuevo al abrir la app.
+	</p>
+{/if}
 
 {#if creando}
 	<div class="card stack">
@@ -89,36 +116,50 @@
 
 <div class="filtros">
 	<input type="search" placeholder="Buscar…" bind:value={busqueda} />
-	<div class="row">
-		<select bind:value={musculo}>
+	<div class="grid">
+		<select bind:value={musculo} aria-label="Músculo">
 			<option value="">Todos los músculos</option>
 			{#each MUSCULOS as m (m)}<option>{m}</option>{/each}
 		</select>
-		<select bind:value={lugar}>
+		<select bind:value={lugar} aria-label="Lugar">
 			<option value="">Casa y gym</option>
 			<option value="casa">Casa</option>
 			<option value="gym">Gimnasio</option>
+		</select>
+		<select bind:value={equipo} aria-label="Equipo">
+			<option value="">Cualquier equipo</option>
+			{#each EQUIPOS as m (m)}<option>{m}</option>{/each}
+		</select>
+		<select bind:value={nivel} aria-label="Nivel">
+			<option value="">Cualquier nivel</option>
+			{#each NIVELES as n (n)}<option value={n}>{n[0].toUpperCase() + n.slice(1)}</option>{/each}
+		</select>
+		<select bind:value={fuente} aria-label="Origen">
+			<option value="">Todos</option>
+			<option value="basicos">Básicos de la app</option>
+			<option value="propios">Mis ejercicios</option>
 		</select>
 	</div>
 </div>
 
 <p class="muted">{lista.length} ejercicios</p>
 
-{#each lista as e (e.id)}
+{#each lista.slice(0, limite) as e (e.id)}
 	<div class="card item">
-		<button class="ghost head" onclick={() => (abierto = abierto === e.id ? null : e.id)}>
-			<span class="nombre">{e.nombre}</span>
-			<span class="row">
-				<span class="chip">{e.musculo}</span>
-				<span class="chip">{lugarTxt[e.lugar]}</span>
+		<button class="ghost head" onclick={() => (abierto = abierto === e.id ? null : e.id)} aria-expanded={abierto === e.id}>
+			<ImagenesEjercicio imagenes={e.imagenes} nombre={e.nombre} tamano="mini" />
+			<span class="txt">
+				<span class="nombre">{e.nombre}</span>
+				<span class="row">
+					<span class="chip">{e.musculo}</span>
+					<span class="chip">{lugarTxt[e.lugar]}</span>
+					{#if e.fuente === 'propio'}<span class="chip">Propio</span>{/if}
+				</span>
 			</span>
 		</button>
 		{#if abierto === e.id}
-			<div class="detalle">
-				<p class="muted">
-					Equipo: {e.equipo} · Se mide en {e.tipo === 'tiempo' ? 'segundos' : 'repeticiones'}
-				</p>
-				{#if e.notas}<p>{e.notas}</p>{/if}
+			<div class="cuerpo">
+				<DetalleEjercicio ejercicio={e} />
 				{#if e.personalizado}
 					<button class="small ghost danger" onclick={() => eliminar(e)}>Eliminar</button>
 				{/if}
@@ -127,33 +168,51 @@
 	</div>
 {/each}
 
+{#if lista.length > limite}
+	<button class="block" onclick={() => (limite += 40)}>Mostrar más ({lista.length - limite} restantes)</button>
+{/if}
+
+<p class="muted creditos">
+	Catálogo, imágenes e instrucciones originales:
+	<a href="https://github.com/yuhonas/free-exercise-db" target="_blank" rel="noopener">free-exercise-db</a>
+	(dominio público). Traducción al español incluida en esta app.
+</p>
+
 <style>
+	.aviso {
+		font-size: 0.9rem;
+	}
 	.filtros {
 		display: grid;
 		gap: 8px;
 		margin-bottom: 8px;
-	}
-	.filtros select {
-		flex: 1;
-		min-width: 0;
 	}
 	.item {
 		padding: 0;
 	}
 	.head {
 		width: 100%;
-		justify-content: space-between;
+		justify-content: flex-start;
 		text-align: left;
-		padding: 12px 14px;
-		flex-wrap: wrap;
+		padding: 10px 12px;
+		gap: 12px;
+	}
+	.txt {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+		min-width: 0;
 	}
 	.nombre {
 		font-weight: 600;
 	}
-	.detalle {
-		padding: 0 14px 12px;
+	.cuerpo {
+		padding: 0 12px 12px;
+		display: grid;
+		gap: 10px;
 	}
-	.detalle p {
-		margin: 4px 0 8px;
+	.creditos {
+		margin-top: 20px;
+		font-size: 0.8rem;
 	}
 </style>

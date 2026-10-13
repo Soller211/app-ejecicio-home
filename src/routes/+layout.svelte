@@ -1,9 +1,15 @@
 <script lang="ts">
 	import '../app.css';
+	import { onMount } from 'svelte';
 	import { page } from '$app/state';
+	import { asegurarCatalogo } from '#lib/catalogo.svelte.ts';
 	import type { LayoutProps } from './$types';
 
 	let { children }: LayoutProps = $props();
+
+	onMount(() => {
+		asegurarCatalogo();
+	});
 
 	const tabs = [
 		{ href: '/', label: 'Inicio', icon: '🏠' },
