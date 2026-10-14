@@ -1,0 +1,72 @@
+name: APK Android
+
+# Compila la app como APK (Capacitor) y la publica en el Release "apk-latest".
+on:
+  push:
+    branches: [main, 'claude/**']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: apk
+  cancel-in-progress: true
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Compilar la app web
+        run: npm run build
+
+      - name: Crear proyecto Android
+        run: |
+          npx cap add android
+          npx --yes @capacitor/assets@3.0.5 generate --android --iconBackgroundColor '#0f1115' --splashBackgroundColor '#0f1115'
+          # Cada compilación sube el número de versión para que el teléfono la acepte como actualización.
+          sed -i "s/versionCode 1$/versionCode ${{ github.run_number }}/; s/versionName \"1.0\"/versionName \"1.0.${{ github.run_number }}\"/" android/app/build.gradle
+          npx cap sync android
+
+      - name: Compilar APK firmado
+        run: |
+          npx cap build android \
+            --keystorepath "$GITHUB_WORKSPACE/android-firma/mientreno.keystore" \
+            --keystorepass mientreno \
+            --keystorealias mientreno \
+            --keystorealiaspass mientreno \
+            --androidreleasetype APK
+          APK=$(find android/app/build/outputs/apk -name '*.apk' | grep -i release | head -n1)
+          echo "APK generado: $APK"
+          cp "$APK" MiEntreno.apk
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: MiEntreno-apk
+          path: MiEntreno.apk
+
+      - name: Publicar en Releases
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release delete apk-latest --yes --cleanup-tag || true
+          gh release create apk-latest MiEntreno.apk \
+            --target "$GITHUB_SHA" \
+            --prerelease \
+            --title "Mi Entreno (APK v1.0.${{ github.run_number }})" \
+            --notes "APK de Android generado automáticamente desde ${GITHUB_REF_NAME} (${GITHUB_SHA::7}). Descarga MiEntreno.apk desde tu teléfono e instálalo."

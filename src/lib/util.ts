@@ -57,6 +57,24 @@ export const rachaSemanas = (sesiones: Sesion[]) => {
 	return n;
 };
 
+/**
+ * Guarda un archivo. En el navegador lo descarga; en la app de Android (Capacitor), donde los
+ * enlaces de descarga no funcionan, lo escribe en caché y abre el menú "Compartir" del teléfono.
+ */
+export async function guardarArchivo(nombre: string, contenido: string, tipo = 'application/json') {
+	const { Capacitor } = await import('@capacitor/core');
+	if (!Capacitor.isNativePlatform()) return descargar(nombre, contenido, tipo);
+	const { Filesystem, Directory, Encoding } = await import('@capacitor/filesystem');
+	const { Share } = await import('@capacitor/share');
+	const { uri } = await Filesystem.writeFile({
+		path: nombre,
+		data: contenido,
+		directory: Directory.Cache,
+		encoding: Encoding.UTF8
+	});
+	await Share.share({ title: nombre, files: [uri] });
+}
+
 export const descargar = (nombre: string, contenido: string, tipo = 'application/json') => {
 	const url = URL.createObjectURL(new Blob([contenido], { type: tipo }));
 	const a = document.createElement('a');

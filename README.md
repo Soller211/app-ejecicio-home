@@ -52,6 +52,15 @@ npm run preview    # prueba el build (incluye el service worker)
 - Los básicos sin foto en el catálogo (burpees, jumping jacks, etc.) usan ilustraciones propias en `static/ilustraciones/`, generadas con `python3 scripts/ilustraciones.py`.
 - Los ejercicios básicos de la app (`src/lib/seed.ts`, `REFERENCIAS`) se enlazan con su equivalente del catálogo para tomar sus fotos e instrucciones.
 
+## APK para Android
+
+Cada vez que se sube código a GitHub, la acción **APK Android** (`.github/workflows/apk.yml`) empaqueta la app con [Capacitor](https://capacitorjs.com) y publica `MiEntreno.apk` en el Release **apk-latest** del repositorio.
+
+- Para instalarlo: abre el Release desde el teléfono, descarga `MiEntreno.apk` y acepta "instalar apps de origen desconocido".
+- Las actualizaciones se instalan encima sin perder datos porque siempre se firman con la misma llave (`android-firma/mientreno.keystore`). Ojo: esa llave está en el repo con contraseña conocida; sirve para uso personal, pero para publicar en Play Store crea una nueva y guárdala como secreto.
+- Para compilarlo en tu compu necesitas Android Studio: `npm run build && npx cap add android && npx cap open android`.
+- Desinstalar la app borra tus datos: descarga un respaldo antes.
+
 ## Publicarlo
 
 La carpeta `build/` es un sitio estático. Puedes subirla gratis a Netlify, Vercel o Cloudflare Pages (comando de build `npm run build`, carpeta de salida `build`). Todas las rutas deben caer en `index.html` (ya viene configurado como *fallback*).

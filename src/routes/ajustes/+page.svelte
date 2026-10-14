@@ -18,14 +18,18 @@
 	});
 
 	const faltan = $derived(Math.max(0, fotos.total - fotos.guardadas));
-	import { descargar, hoyISO } from '#lib/util.ts';
+	import { guardarArchivo, hoyISO } from '#lib/util.ts';
 
 	let mensaje = $state('');
 
 	async function exportar() {
 		const datos = await exportarDatos();
-		descargar(`mi-entreno-respaldo-${hoyISO()}.json`, JSON.stringify(datos, null, 2));
-		mensaje = 'Respaldo descargado ✅';
+		try {
+			await guardarArchivo(`mi-entreno-respaldo-${hoyISO()}.json`, JSON.stringify(datos, null, 2));
+			mensaje = 'Respaldo listo ✅';
+		} catch (e) {
+			mensaje = `No se pudo guardar el respaldo: ${(e as Error).message}`;
+		}
 	}
 
 	async function importar(ev: Event) {
@@ -100,6 +104,8 @@
 <div class="card stack">
 	<h3>Instalar en tu teléfono</h3>
 	<p class="muted">
+		<b>Si usas el APK:</b> ya está instalada; al descargar el respaldo elige dónde guardarlo
+		(Drive, WhatsApp, Archivos…).<br />
 		<b>Android (Chrome):</b> menú ⋮ → “Instalar app” o “Agregar a pantalla principal”.<br />
 		<b>iPhone (Safari):</b> botón Compartir → “Agregar a inicio”.
 	</p>
