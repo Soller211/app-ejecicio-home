@@ -1,4 +1,5 @@
 <script lang="ts">
+	import X from '@lucide/svelte/icons/x';
 	import { liveQuery } from 'dexie';
 	import { db, type RegistroCorporal } from '#lib/db.ts';
 	import Grafica from '#lib/components/Grafica.svelte';
@@ -157,7 +158,7 @@
 						<tr>
 							<td>{fechaCorta(r.fecha)}</td>
 							<td>{r[medida]} {infoMedida.unidad}</td>
-							<td><button class="small ghost danger" onclick={() => confirm('¿Borrar este registro?') && db.corporal.delete(r.id)}>✕</button></td>
+							<td><button class="small ghost danger" onclick={() => confirm('¿Borrar este registro?') && db.corporal.delete(r.id)} aria-label="Borrar registro"><X size={16} /></button></td>
 						</tr>
 					{/each}
 				</tbody>
@@ -215,7 +216,9 @@
 
 <style>
 	.delta {
-		color: var(--text);
+		font-family: var(--font-display);
+		font-size: 1.4rem;
+		color: var(--accent);
 	}
 	details {
 		margin-top: 10px;

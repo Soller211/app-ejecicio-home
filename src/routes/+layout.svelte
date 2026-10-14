@@ -5,6 +5,11 @@
 	import { asegurarCatalogo } from '#lib/catalogo.svelte.ts';
 	import { guardarFotosDeRutinas } from '#lib/fotos.svelte.ts';
 	import type { LayoutProps } from './$types';
+	import House from '@lucide/svelte/icons/house';
+	import ListChecks from '@lucide/svelte/icons/list-checks';
+	import Dumbbell from '@lucide/svelte/icons/dumbbell';
+	import TrendingUp from '@lucide/svelte/icons/trending-up';
+	import CalendarDays from '@lucide/svelte/icons/calendar-days';
 
 	let { children }: LayoutProps = $props();
 
@@ -15,11 +20,11 @@
 	});
 
 	const tabs = [
-		{ href: '/', label: 'Inicio', icon: '🏠' },
-		{ href: '/rutinas', label: 'Rutinas', icon: '📋' },
-		{ href: '/ejercicios', label: 'Ejercicios', icon: '💪' },
-		{ href: '/progreso', label: 'Progreso', icon: '📈' },
-		{ href: '/historial', label: 'Historial', icon: '🗓️' }
+		{ href: '/', label: 'Inicio', icon: House },
+		{ href: '/rutinas', label: 'Rutinas', icon: ListChecks },
+		{ href: '/ejercicios', label: 'Ejercicios', icon: Dumbbell },
+		{ href: '/progreso', label: 'Progreso', icon: TrendingUp },
+		{ href: '/historial', label: 'Historial', icon: CalendarDays }
 	];
 
 	const activo = (href: string) =>
@@ -34,10 +39,10 @@
 </main>
 
 {#if !enEntreno}
-	<nav>
+	<nav aria-label="Secciones">
 		{#each tabs as t (t.href)}
-			<a href={t.href} class:on={activo(t.href)}>
-				<span aria-hidden="true">{t.icon}</span>
+			<a href={t.href} class:on={activo(t.href)} aria-current={activo(t.href) ? 'page' : undefined}>
+				<span class="ico"><t.icon size={22} strokeWidth={activo(t.href) ? 2.5 : 2} /></span>
 				{t.label}
 			</a>
 		{/each}
@@ -47,30 +52,48 @@
 <style>
 	nav {
 		position: fixed;
-		bottom: 0;
-		left: 0;
-		right: 0;
+		left: 12px;
+		right: 12px;
+		bottom: calc(10px + env(safe-area-inset-bottom));
+		max-width: 520px;
+		margin: 0 auto;
 		display: grid;
 		grid-template-columns: repeat(5, 1fr);
-		background: var(--surface);
-		border-top: 1px solid var(--border);
-		padding-bottom: env(safe-area-inset-bottom);
+		background: rgb(19 21 27 / 0.92);
+		backdrop-filter: blur(14px);
+		-webkit-backdrop-filter: blur(14px);
+		border: 1px solid var(--border);
+		border-radius: 22px;
+		padding: 6px;
 		z-index: 10;
+		box-shadow: var(--shadow);
 	}
 	nav a {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		gap: 2px;
-		padding: 8px 0 10px;
-		font-size: 0.72rem;
+		padding: 6px 0 4px;
+		font-size: 0.66rem;
+		font-weight: 600;
+		letter-spacing: 0.02em;
 		color: var(--muted);
 		text-decoration: none;
+		border-radius: 16px;
 	}
-	nav a span {
-		font-size: 1.25rem;
+	.ico {
+		display: grid;
+		place-items: center;
+		width: 46px;
+		height: 30px;
+		border-radius: 999px;
+		transition: background 0.2s;
 	}
 	nav a.on {
-		color: var(--accent);
+		color: var(--text);
+	}
+	nav a.on .ico {
+		background: var(--accent);
+		color: var(--accent-ink);
 	}
 </style>

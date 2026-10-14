@@ -44,6 +44,7 @@
 		const tenue = css('--muted');
 		const borde = css('--border');
 		const superficie = css('--surface');
+		Chart.defaults.font.family = css('--font-body');
 		const fmt = (v: number) => `${Number(v.toFixed(1))}${unidad ? ' ' + unidad : ''}`;
 
 		const chart = new Chart(canvas, {
@@ -54,9 +55,20 @@
 					{
 						data: [...valores],
 						borderColor: acento,
-						backgroundColor: tipo === 'bar' ? acento : acento + '22',
-						borderWidth: tipo === 'bar' ? 0 : 2,
-						borderRadius: 4,
+						backgroundColor:
+							tipo === 'bar'
+								? acento
+								: (c: { chart: Chart }) => {
+										// Degradado bajo la línea: del acento a transparente
+										const { ctx, chartArea } = c.chart;
+										if (!chartArea) return acento + '22';
+										const g = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
+										g.addColorStop(0, acento + '55');
+										g.addColorStop(1, acento + '00');
+										return g;
+									},
+						borderWidth: tipo === 'bar' ? 0 : 3,
+						borderRadius: 6,
 						fill: tipo === 'line',
 						tension: 0.25,
 						pointRadius: valores.length > 30 ? 0 : 4,

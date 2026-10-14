@@ -6,7 +6,7 @@ const config: CapacitorConfig = {
 	// Sitio estático que genera `npm run build` (adapter-static).
 	webDir: 'build',
 	android: {
-		backgroundColor: '#0f1115'
+		backgroundColor: '#08090c'
 	}
 };
 

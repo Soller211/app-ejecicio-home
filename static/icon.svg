@@ -1,10 +1,20 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <rect width="512" height="512" rx="112" fill="#0f1115"/>
-  <g fill="#3ddc84">
-    <rect x="96" y="196" width="44" height="120" rx="14"/>
-    <rect x="372" y="196" width="44" height="120" rx="14"/>
-    <rect x="148" y="164" width="52" height="184" rx="16"/>
-    <rect x="312" y="164" width="52" height="184" rx="16"/>
-    <rect x="200" y="238" width="112" height="36" rx="10"/>
+  <defs>
+    <radialGradient id="glow" cx="0.3" cy="0.25" r="0.9">
+      <stop offset="0" stop-color="#2a3410"/>
+      <stop offset="0.55" stop-color="#0f1208"/>
+      <stop offset="1" stop-color="#08090c"/>
+    </radialGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#glow)"/>
+  <g transform="translate(274 290) rotate(-30) scale(0.94) translate(-256 -256)">
+    <g fill="#c8ff2e">
+      <rect x="86" y="192" width="44" height="128" rx="14"/>
+      <rect x="382" y="192" width="44" height="128" rx="14"/>
+      <rect x="138" y="156" width="56" height="200" rx="18"/>
+      <rect x="318" y="156" width="56" height="200" rx="18"/>
+      <rect x="194" y="236" width="124" height="40" rx="10"/>
+    </g>
   </g>
+  <path d="M166 62 l-42 96 h36 l-26 78 l72 -106 h-38 l30 -68 z" fill="#ff6a2b"/>
 </svg>

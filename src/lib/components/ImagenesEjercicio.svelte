@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Dumbbell from '@lucide/svelte/icons/dumbbell';
 	import { catalogo, urlImagen } from '#lib/catalogo.svelte.ts';
 
 	interface Props {
@@ -28,7 +29,7 @@
 		{#if hay}
 			<img src={urlImagen(imagenes[0])} alt="" loading="lazy" crossorigin="anonymous" onerror={() => (fallo = true)} />
 		{:else}
-			<span>💪</span>
+			<Dumbbell size={22} />
 		{/if}
 	</div>
 {:else if hay}

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Plus from '@lucide/svelte/icons/plus';
 	import { liveQuery } from 'dexie';
 	import { db, type Ejercicio, type Lugar } from '#lib/db.ts';
 	import { MUSCULOS } from '#lib/seed.ts';
@@ -61,7 +62,7 @@
 						<b>{e.nombre}</b>
 						<span class="muted">{e.musculo} · {e.equipo}{e.nivel ? ` · ${e.nivel}` : ''}</span>
 					</span>
-					<span class="mas" aria-hidden="true">＋</span>
+					<span class="mas" aria-hidden="true"><Plus size={20} strokeWidth={3} /></span>
 				</button>
 			</li>
 		{/each}
@@ -114,8 +115,14 @@
 		font-size: 0.8rem;
 	}
 	.mas {
+		display: grid;
+		place-items: center;
+		width: 34px;
+		height: 34px;
+		flex: none;
+		border-radius: 50%;
+		background: var(--accent-soft);
 		color: var(--accent);
-		font-size: 1.3rem;
 	}
 	p {
 		margin: 0;

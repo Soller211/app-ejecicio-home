@@ -7,6 +7,10 @@
 	import ImagenesEjercicio from '#lib/components/ImagenesEjercicio.svelte';
 	import SelectorEjercicio from '#lib/components/SelectorEjercicio.svelte';
 	import { guardarFotosDeRutinas } from '#lib/fotos.svelte.ts';
+	import ArrowUp from '@lucide/svelte/icons/arrow-up';
+	import ArrowDown from '@lucide/svelte/icons/arrow-down';
+	import X from '@lucide/svelte/icons/x';
+	import Save from '@lucide/svelte/icons/save';
 
 	let id = $state<number | undefined>();
 	let nombre = $state('');
@@ -88,12 +92,12 @@
 		<div class="spread">
 			<div class="row titulo">
 				<ImagenesEjercicio imagenes={e?.imagenes} nombre={e?.nombre ?? ''} tamano="mini" />
-				<h3>{i + 1}. {e?.nombre ?? '—'}</h3>
+				<h3><span class="idx">{i + 1}</span> {e?.nombre ?? '—'}</h3>
 			</div>
 			<div class="row">
-				<button class="small ghost" onclick={() => mover(i, -1)} aria-label="Subir">↑</button>
-				<button class="small ghost" onclick={() => mover(i, 1)} aria-label="Bajar">↓</button>
-				<button class="small ghost danger" onclick={() => items.splice(i, 1)} aria-label="Quitar">✕</button>
+				<button class="ghost icon-btn mini" onclick={() => mover(i, -1)} aria-label="Subir"><ArrowUp size={18} /></button>
+				<button class="ghost icon-btn mini" onclick={() => mover(i, 1)} aria-label="Bajar"><ArrowDown size={18} /></button>
+				<button class="ghost icon-btn mini danger" onclick={() => items.splice(i, 1)} aria-label="Quitar"><X size={18} /></button>
 			</div>
 		</div>
 		<div class="grid3">
@@ -116,8 +120,8 @@
 	<p class="muted">¿No está? <a href="/ejercicios">Crea un ejercicio propio</a>.</p>
 </div>
 
-<div class="row">
-	<button class="primary" onclick={guardar}>Guardar rutina</button>
+<div class="row acciones-final">
+	<button class="primary" onclick={guardar}><Save size={18} /> Guardar rutina</button>
 	<a class="btn" href="/rutinas">Cancelar</a>
 	{#if id}<button class="ghost danger" onclick={eliminar}>Eliminar</button>{/if}
 </div>
@@ -129,6 +133,26 @@
 	}
 	.titulo h3 {
 		margin: 0;
+	}
+	.idx {
+		font-family: var(--font-display);
+		color: var(--accent);
+		font-style: italic;
+		margin-right: 2px;
+	}
+	.mini {
+		width: 36px;
+		height: 36px;
+		color: var(--muted);
+	}
+	.mini.danger {
+		color: var(--danger);
+	}
+	.acciones-final {
+		margin-top: 16px;
+	}
+	.acciones-final .primary {
+		flex: 1;
 	}
 	.grid3 {
 		display: grid;

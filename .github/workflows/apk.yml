@@ -38,7 +38,7 @@ jobs:
       - name: Crear proyecto Android
         run: |
           npx cap add android
-          npx --yes @capacitor/assets@3.0.5 generate --android --iconBackgroundColor '#0f1115' --splashBackgroundColor '#0f1115'
+          npx --yes @capacitor/assets@3.0.5 generate --android --iconBackgroundColor '#08090c' --splashBackgroundColor '#08090c'
           # Cada compilación sube el número de versión para que el teléfono la acepte como actualización.
           sed -i "s/versionCode 1$/versionCode ${{ github.run_number }}/; s/versionName \"1.0\"/versionName \"1.0.${{ github.run_number }}\"/" android/app/build.gradle
           npx cap sync android

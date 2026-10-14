@@ -1,205 +1,294 @@
-:root {
-	--bg: #0f1115;
-	--surface: #181b22;
-	--surface-2: #222631;
-	--border: #2d3240;
-	--text: #eef0f4;
-	--muted: #9aa1b2;
-	--accent: #3ddc84;
-	--accent-ink: #062b16;
-	--warn: #ffb84d;
-	--danger: #ff5c6c;
-	--radius: 14px;
-	color-scheme: dark;
-}
+/* Tipografías incluidas en la app (funcionan sin internet) */
+@import "@fontsource/barlow-condensed/600.css";
+@import "@fontsource/barlow-condensed/700.css";
+@import "@fontsource/barlow-condensed/800.css";
+@import "@fontsource/barlow-condensed/800-italic.css";
+@import "@fontsource-variable/inter";
 
-@media (prefers-color-scheme: light) {
-	:root {
-		--bg: #f5f6f8;
-		--surface: #ffffff;
-		--surface-2: #eef0f4;
-		--border: #dde0e7;
-		--text: #14161b;
-		--muted: #5d6475;
-		--accent: #13a456;
-		--accent-ink: #ffffff;
-		--warn: #b86e00;
-		--danger: #d42c3c;
-		color-scheme: light;
-	}
+/* Tema deportivo: siempre oscuro, acento lima neón y naranja energía */
+:root {
+  --bg: #08090c;
+  --surface: #13151b;
+  --surface-2: #1c1f27;
+  --surface-3: #262a34;
+  --border: #2a2e39;
+  --text: #f4f6f9;
+  --muted: #8d94a6;
+  --accent: #c8ff2e;
+  --accent-ink: #0b0d02;
+  --accent-soft: rgb(200 255 46 / 0.12);
+  --energy: #ff6a2b;
+  --energy-soft: rgb(255 106 43 / 0.14);
+  --danger: #ff4d5e;
+  --radius: 18px;
+  --radius-sm: 12px;
+  --font-display: "Barlow Condensed", "Arial Narrow", system-ui, sans-serif;
+  --font-body:
+    "Inter Variable", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --shadow: 0 10px 30px rgb(0 0 0 / 0.35);
+  color-scheme: dark;
 }
 
 * {
-	box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 html,
 body {
-	margin: 0;
-	background: var(--bg);
-	color: var(--text);
-	font-family:
-		system-ui,
-		-apple-system,
-		'Segoe UI',
-		Roboto,
-		sans-serif;
-	-webkit-tap-highlight-color: transparent;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.45;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
 }
 
 main {
-	max-width: 720px;
-	margin: 0 auto;
-	padding: 16px 16px calc(96px + env(safe-area-inset-bottom));
+  max-width: 720px;
+  margin: 0 auto;
+  padding: calc(12px + env(safe-area-inset-top)) 16px
+    calc(110px + env(safe-area-inset-bottom));
 }
 
+h1,
+h2,
+h3,
+.display {
+  font-family: var(--font-display);
+  letter-spacing: 0.01em;
+}
 h1 {
-	font-size: 1.6rem;
-	margin: 8px 0 16px;
+  font-size: 2.3rem;
+  font-weight: 800;
+  font-style: italic;
+  text-transform: uppercase;
+  line-height: 1;
+  margin: 12px 0 18px;
 }
 h2 {
-	font-size: 1.15rem;
-	margin: 24px 0 10px;
+  font-size: 1.35rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin: 28px 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+h2::before {
+  content: "";
+  width: 4px;
+  height: 1em;
+  border-radius: 2px;
+  background: var(--accent);
 }
 h3 {
-	font-size: 1rem;
-	margin: 0 0 6px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0 0 4px;
+  line-height: 1.15;
 }
 
 a {
-	color: var(--accent);
+  color: var(--accent);
 }
 
 .card {
-	background: var(--surface);
-	border: 1px solid var(--border);
-	border-radius: var(--radius);
-	padding: 14px;
-	margin-bottom: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 12px;
 }
 
 .muted {
-	color: var(--muted);
-	font-size: 0.9rem;
+  color: var(--muted);
+  font-size: 0.88rem;
 }
 
 .row {
-	display: flex;
-	gap: 8px;
-	align-items: center;
-	flex-wrap: wrap;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
 }
 .spread {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	gap: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
 }
 .grid {
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-	gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 10px;
 }
 .stack > * + * {
-	margin-top: 10px;
+  margin-top: 10px;
 }
 
 button,
 .btn {
-	font: inherit;
-	border: 1px solid var(--border);
-	background: var(--surface-2);
-	color: var(--text);
-	border-radius: 10px;
-	padding: 10px 14px;
-	cursor: pointer;
-	text-decoration: none;
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	gap: 6px;
-	min-height: 44px;
+  font: inherit;
+  font-weight: 600;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text);
+  border-radius: 14px;
+  padding: 10px 16px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  transition:
+    transform 0.08s,
+    background 0.15s;
+}
+button:active,
+.btn:active {
+  transform: scale(0.97);
 }
 button:disabled {
-	opacity: 0.5;
-	cursor: default;
+  opacity: 0.45;
+  cursor: default;
 }
 .primary {
-	background: var(--accent);
-	border-color: var(--accent);
-	color: var(--accent-ink);
-	font-weight: 600;
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.15rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.energy {
+  background: var(--energy);
+  border-color: var(--energy);
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 .danger {
-	color: var(--danger);
+  color: var(--danger);
 }
 .ghost {
-	background: transparent;
-	border-color: transparent;
+  background: transparent;
+  border-color: transparent;
 }
 .block {
-	width: 100%;
+  width: 100%;
 }
 .small {
-	min-height: 34px;
-	padding: 6px 10px;
-	font-size: 0.9rem;
+  min-height: 36px;
+  padding: 6px 12px;
+  font-size: 0.88rem;
+  border-radius: 10px;
+}
+.icon-btn {
+  width: 44px;
+  height: 44px;
+  min-height: 0;
+  padding: 0;
+  border-radius: 50%;
 }
 
 input,
 select,
 textarea {
-	font: inherit;
-	width: 100%;
-	background: var(--surface-2);
-	color: var(--text);
-	border: 1px solid var(--border);
-	border-radius: 10px;
-	padding: 10px 12px;
-	min-height: 44px;
+  font: inherit;
+  width: 100%;
+  background: var(--surface-2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  min-height: 48px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--accent);
+}
+input[type="checkbox"],
+input[type="range"] {
+  accent-color: var(--accent);
 }
 textarea {
-	min-height: 70px;
-	resize: vertical;
+  min-height: 76px;
+  resize: vertical;
 }
 label {
-	display: block;
-	font-size: 0.85rem;
-	color: var(--muted);
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
 }
 label > input,
 label > select,
 label > textarea {
-	margin-top: 4px;
+  margin-top: 6px;
+  text-transform: none;
+  letter-spacing: normal;
+  font-weight: 400;
+  color: var(--text);
 }
 
 .chip {
-	display: inline-block;
-	font-size: 0.75rem;
-	padding: 2px 8px;
-	border-radius: 999px;
-	background: var(--surface-2);
-	border: 1px solid var(--border);
-	color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.chip.accent {
+  background: var(--accent-soft);
+  border-color: transparent;
+  color: var(--accent);
 }
 
+/* Número grande con etiqueta */
 .stat {
-	background: var(--surface);
-	border: 1px solid var(--border);
-	border-radius: var(--radius);
-	padding: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px;
 }
 .stat b {
-	display: block;
-	font-size: 1.5rem;
+  display: block;
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  font-weight: 800;
+  line-height: 1;
 }
 .stat span {
-	color: var(--muted);
-	font-size: 0.85rem;
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .empty {
-	text-align: center;
-	color: var(--muted);
-	padding: 24px 8px;
+  text-align: center;
+  color: var(--muted);
+  padding: 28px 8px;
 }
